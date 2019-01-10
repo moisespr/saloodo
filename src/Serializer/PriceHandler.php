@@ -33,12 +33,14 @@ class PriceHandler implements SubscribingHandlerInterface
     {
         $priceFormatter = new DefaultPriceFormatter();
         $json  = '{';
+        /*
         $json .= '\'amount\': '.$priceFormatter->getAmount($price);
         $json .= ',\'final_price\': '.$priceFormatter->getFinalPrice($price);
         if($price->getDiscount()) {
             $json .= ',\'discount\': '.$priceFormatter->getDiscount($price);
             $json .= ',\'discount_type\': '.$priceFormatter->getDiscountType($price);
         }
+         */
         $json .= '}';
         return $json;
     }
