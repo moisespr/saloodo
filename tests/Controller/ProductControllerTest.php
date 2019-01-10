@@ -9,7 +9,7 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/api/products');
+        $client->request('GET', '/products');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -23,7 +23,7 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -42,14 +42,14 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/api/products/2');
+        $client->request('GET', '/products/2');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('name', $data);
-        $this->assertEquals('Product 1', $data['name']);
+        $this->assertEquals('Product 2', $data['name']);
         $this->assertArrayHasKey('final_price', $data);
         $this->assertEquals('9EUR', $data['final_price']);
         $this->assertArrayHasKey('original_price', $data);
@@ -62,14 +62,14 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/api/products/3');
+        $client->request('GET', '/products/3');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('name', $data);
-        $this->assertEquals('Product 1', $data['name']);
+        $this->assertEquals('Product 3', $data['name']);
         $this->assertArrayHasKey('final_price', $data);
         $this->assertEquals("8EUR", $data['final_price']);
         $this->assertArrayHasKey('original_price', $data);
@@ -82,7 +82,7 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('GET', '/api/products/11');
+        $client->request('GET', '/products/11');
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
@@ -91,10 +91,10 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('DELETE', '/api/products/1');        
+        $client->request('DELETE', '/products/1');        
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');        
+        $client->request('GET', '/products/1');        
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
     }
 
@@ -102,7 +102,7 @@ class ProductControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('DELETE', '/api/products/11');
+        $client->request('DELETE', '/products/11');
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -113,7 +113,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '5'];
         $client->request(
             'PUT',
-            '/api/products/1/price',
+            '/products/1/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -122,7 +122,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -139,7 +139,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '5EUR'];
         $client->request(
             'PUT',
-            '/api/products/1/price',
+            '/products/1/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -148,7 +148,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -165,7 +165,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '5.50'];
         $client->request(
             'PUT',
-            '/api/products/1/price',
+            '/products/1/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -174,7 +174,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -191,7 +191,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '5.50EUR'];
         $client->request(
             'PUT', 
-            '/api/products/1/price', 
+            '/products/1/price', 
             array(), 
             array(), 
             array('CONTENT_TYPE' => 'application/json'),
@@ -200,7 +200,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -217,7 +217,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '5.50EUR'];
         $client->request(
             'PUT',
-            '/api/products/11/price',
+            '/products/11/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -234,7 +234,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '1'];
         $client->request(
             'PUT',
-            '/api/products/1/discount',
+            '/products/1/discount',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -243,7 +243,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -260,7 +260,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '1EUR'];
         $client->request(
             'PUT',
-            '/api/products/1/discount',
+            '/products/1/discount',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -269,7 +269,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -286,7 +286,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '1.5'];
         $client->request(
             'PUT',
-            '/api/products/1/discount',
+            '/products/1/discount',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -295,7 +295,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -312,7 +312,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '1.5EUR'];
         $client->request(
             'PUT', 
-            '/api/products/1/discount', 
+            '/products/1/discount', 
             array(), 
             array(), 
             array('CONTENT_TYPE' => 'application/json'),
@@ -321,7 +321,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -338,7 +338,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '5.50EUR'];
         $client->request(
             'PUT',
-            '/api/products/11/discount',
+            '/products/11/discount',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -355,7 +355,7 @@ class ProductControllerTest extends WebTestCase
         $request_data = ['value' => '10%'];
         $client->request(
             'PUT',
-            '/api/products/1/discount',
+            '/products/1/discount',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -364,7 +364,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/api/products/1');
+        $client->request('GET', '/products/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -386,7 +386,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/api/products',
+            '/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -418,7 +418,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/api/products',
+            '/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -448,7 +448,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/api/products',
+            '/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -468,7 +468,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/api/products',
+            '/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -488,7 +488,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'PATCH',
-            '/api/products/1',
+            '/products/1',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -508,7 +508,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'PATCH',
-            '/api/products/1',
+            '/products/1',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -528,7 +528,7 @@ class ProductControllerTest extends WebTestCase
 
         $client->request(
             'PATCH',
-            '/api/products/1',
+            '/products/1',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
