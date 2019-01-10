@@ -20,7 +20,9 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('products', $data);
         $this->assertEquals(3, count($data['products']));
-    } *
+    } 
+
+/*
     public function testGetProductByIdNoDiscount()
     {
         $client = static::createClient();
