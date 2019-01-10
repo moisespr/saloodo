@@ -1,0 +1,22 @@
+# fixtures/products.yaml
+
+App\Entity\Price:
+    price_1:
+        amount: 1000
+        final_price: 1000
+    price_2:
+        amount: 1000
+        discount: 100
+        discount_type: 'CONCRETE'
+        final_price: 900
+    price_3:
+        amount: 1000
+        discount: 2000
+        discount_type: 'PERCENTUAL'
+        final_price: 800
+
+App\Entity\Product:
+    product_{1..3}:
+        id: <current()>
+        name: 'Product <current()>'
+        price: '@price_*'

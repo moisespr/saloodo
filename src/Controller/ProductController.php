@@ -2,52 +2,67 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\Controller\Annotations\Put;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-class ProductController extends AbstractController
+use FOS\RestBundle\Controller\AbstractFOSRestController;
+use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations\View;
+
+use App\Entity\Product;
+
+class ProductController extends AbstractFOSRestController
 {
     public function getProductsAction()
     {
-        $data = $this->buildDummyData();
+        $products = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findAll();
+   
+        $data = ['products' => $products];
         
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        $response->setContent(json_encode($data));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    private function buildDummyData() 
-    {
-        $data = [
-            'products' => [
-                ['name' => 'Product 1', 'final_price' => '10EUR', 'original_price' => '10EUR'],
-                ['name' => 'Product 2', 'final_price' => '9EUR', 'original_price' => '10EUR', 'discount' => '1EUR'],
-                ['name' => 'Product 3', 'final_price' => '8EUR', 'original_price' => '10EUR', 'discount' => '20%']
-            ]
-        ];
-        return $data;
+        return $this->handleView(
+            $this->view($data), 
+            Response::HTTP_OK
+        );
     }
 
     public function getProductAction($id)
     {
-        if($id < 0 || $id > 3) {
-            return new Response('', Response::HTTP_NOT_FOUND);
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+
+        if(!$product) {
+            throw new ResourceNotFoundException('Product not found');
         }
-        $data = $this->buildDummyData();
 
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        $response->setContent(json_encode($data['products'][$id-1]));
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $this->handleView(
+            $this->view($product),
+            Response::HTTP_OK
+        );
     }
 
     public function deleteProductAction($id)
     {
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->find($id);
+
+        if(!$product) {
+            throw new ResourceNotFoundException('Product not found');
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($product);
+        $entityManager->flush();
+        
+        $product = $this->getDoctrine()
+                        ->getRepository(Product::class)
+                                    ->find($id);
+        return $this->handleView(
+            $this->view()
+        );
     }
 
     public function postProductsAction()
@@ -59,16 +74,10 @@ class ProductController extends AbstractController
     }
 
     /**
-    * @Put("/products/{id}/price")
+    * @Patch("/products/{id}/price")
     */
     public function putProductPrice($id)
     {
-    }    
-
-    /**
-    * @Put("/products/{id}/discount")
-    */
-    public function putProductDiscount($id)
-    {
+        
     }
 }
