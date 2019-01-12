@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Embeddable
@@ -9,43 +10,88 @@ use Doctrine\ORM\Mapping as ORM;
 class Price 
 {
     /**
-    * @ORM\Column(type="integer")
-    */
+     * @ORM\Column(type="integer")
+     */
     private $amount;
 
     /**
-    * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="final_price")
     */
-    private $final_price;    
+    private $finalPrice;    
 
     /**
-    * @ORM\Column(type="integer", nullable=TRUE)
-    */
-    private $discount;
+     * @ORM\Column(type="integer", nullable=true, name="discount_amount")
+     *
+     * Original idea was to embbed a Discount here, but Doctrine doesn't support nullable embbedables
+     */
+    private $discountAmount;
 
     /**
-    * @ORM\Column(type="string", length=255, nullable=TRUE)
-    */
-    private $discount_type;
+     * @ORM\Column(type="string", nullable=true, name="discount_type")
+     */
+    private $discountType;
 
-    public function setAmount($amount)
+    public function __construct(int $amount, ?Discount $discount = NULL)
+    {
+        $this->setAmount($amount);
+        $this->setDiscount($discount);
+    }
+
+    public function setAmount(int $amount)
     {
         $this->amount = $amount;
+        $this->finalPrice = $this->calculateFinalPrice();
     }
 
-    public function setFinalPrice($final_price)
+    public function setDiscount(?Discount $discount)
     {
-        $this->final_price = $final_price;
+        if(is_null($discount)) {
+            $this->setDiscountToNull();
+        } else {
+            $this->setDiscountFromInstance($discount);
+        }
+        $this->finalPrice = $this->calculateFinalPrice();
     }
 
-    public function setDiscount($discount)
+    private function setDiscountToNull()
     {
-        $this->discount = $discount;
+        $this->discountAmount = null;
+        $this->discountType = null;
     }
 
-    public function setDiscountType($discount_type)
+    private function setDiscountFromInstance(Discount $discount)
     {
-        $this->discount_type = $discount_type;
+         $this->discountAmount = $discount->getAmount();
+         $this->discountType = $discount->getType();
+    }
+
+    private function calculateFinalPrice()
+    {
+        $discount = $this->calculateDiscountAmount();
+        return $this->amount - $discount;
+    }
+
+    private function calculateDiscountAmount()
+    {
+        if(!$this->hasDiscount()) {
+            return 0;
+        }
+        switch($this->discountType)
+        {
+            case Discount::PERCENTUAL:
+                return $this->calculatePercentualDiscountAmount($this->discountAmount, $this->amount);
+            case Discount::CONCRETE:
+                return $this->discountAmount;
+            default:
+                return 0;
+        }
+    }
+
+    private function calculatePercentualDiscountAmount($discountAmount, $priceAmount)
+    {
+        $decimal = $discountAmount / 100.0;
+        $percent = $decimal / 100.0;
+        return $priceAmount * $percent;
     }
 
     public function getAmount() 
@@ -55,17 +101,20 @@ class Price
 
     public function getDiscount()
     {
-        return $this->discount;
+        if(!$this->hasDiscount()) {
+            return null;
+        }
+        return new Discount($this->discountAmount, $this->discountType);
     }
 
-    public function getDiscountType()
+    public function hasDiscount()
     {
-        return $this->discount_type;
+        return !is_null($this->discountAmount) && $this->discountAmount > 0;
     }
 
     public function getFinalPrice()
     {
-        return $this->final_price;
+        return $this->finalPrice;
     }
 
 }

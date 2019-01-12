@@ -7,6 +7,6 @@ interface PriceFormatter
 {
     public function getAmount(Price $price);
     public function getFinalPrice(Price $price);
-    public function getDiscount(Price $price);
+    public function getDiscountAmount(Price $price);
     public function getDiscountType(Price $price);
 }

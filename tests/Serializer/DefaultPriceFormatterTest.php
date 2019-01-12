@@ -2,6 +2,7 @@
 namespace App\Tests\Serializer;
 
 use App\Serializer\DefaultPriceFormatter;
+use App\Entity\Discount;
 use App\Entity\Price;
 
 use PHPUnit\Framework\TestCase;
@@ -17,24 +18,28 @@ class DefaultPriceFormatterTest extends TestCase
 
     public function testGetAmountBiggerThanOneAndLesserThanTen()
     {
-        $price = new Price();
-        $price->setAmount(900);
+        $price = new Price(900);
         $amount = $this->formatter->getAmount($price);
         $this->assertEquals('9.00', $amount);
     }
 
     public function testGetAmountLesserThanOne()
     {
-        $price = new Price();
-        $price->setAmount(45);
+        $price = new Price(45);
         $amount = $this->formatter->getAmount($price);
         $this->assertEquals('0.45', $amount);
     }
 
+    public function testGetAmountLesserThanOneTwoDecimals()
+    {
+        $price = new Price(5);
+        $amount = $this->formatter->getAmount($price);
+        $this->assertEquals('0.50', $amount);
+    }
+
     public function testGetAmountLesserThanTenAndBiggerThanOne()
     {
-        $price = new Price();
-        $price->setAmount(1567);
+        $price = new Price(1567);
         $amount = $this->formatter->getAmount($price);
         $this->assertEquals('15.67', $amount);
     }
@@ -44,29 +49,59 @@ class DefaultPriceFormatterTest extends TestCase
         $this->expectException(\TypeError::class);
         $this->formatter->getAmount(null);
     }
+
+    public function testGetFinalPricePriceNull()
+    {
+        $this->expectException(\TypeError::class);
+        $this->formatter->getFinalPrice(null);
+    }
+
+    public function testGetDiscountAmountPriceNull()
+    {
+        $this->expectException(\TypeError::class);
+        $this->formatter->getDiscountAmount(null);
+    }
+
+    public function testGetDiscountTypePriceNull()
+    {
+        $this->expectException(\TypeError::class);
+        $this->formatter->getDiscountType(null);
+    }
     
-    public function testGetFinalPrice()
+    public function testGetFinalPriceNoDiscount()
     {
-        $this->assertTrue(false);
+        $price = new Price(1567);
+        $finalPrice = $this->formatter->getFinalPrice($price);
+        $this->assertEquals('15.67', $finalPrice);
     }
 
-    public function testGetDiscountWhenPresent()
+    public function testGetDiscountAmountWhenPresent()
     {
-        $this->assertTrue(false);
+        $discount = new Discount(2000, Discount::PERCENTUAL);
+        $price = new Price(1000, $discount);
+        $discountAmount = $this->formatter->getDiscountAmount($price);
+        $this->assertEquals('20.00', $discountAmount);
     }
 
-    public function testGetDiscountWhenNotPresent()
+    public function testGetDiscountAmountWhenNotPresent()
     {
-        $this->assertTrue(false);
+        $price = new Price(1000);
+        $discountAmount = $this->formatter->getDiscountAmount($price);
+        $this->assertEquals('', $discountAmount);
     }
 
     public function testGetDiscountTypeWhenPresent()
     {
-        $this->assertTrue(false);
+        $discount = new Discount(2000, Discount::PERCENTUAL);
+        $price = new Price(1000, $discount);
+        $discountType = $this->formatter->getDiscountType($price);
+        $this->assertEquals('PERCENTUAL', $discountType);
     }
 
     public function testGetDiscountTypeWhenNotPresent()
     {
-        $this->assertTrue(false);
+        $price = new Price(1000);
+        $discountType = $this->formatter->getDiscountType($price);
+        $this->assertEquals('', $discountType);
     }
 }

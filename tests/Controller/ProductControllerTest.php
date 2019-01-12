@@ -22,7 +22,6 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals(3, count($data['products']));
     } 
 
-/*
     public function testGetProductByIdNoDiscount()
     {
         $client = static::createClient();
@@ -40,7 +39,7 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals('10.00', $data['price']['amount']);
         $this->assertArrayHasKey('final_price', $data['price']);
         $this->assertEquals('10.00', $data['price']['final_price']);
-        $this->assertArrayNotHasKey('discount', $data);
+        $this->assertArrayNotHasKey('discount_amount', $data);
         $this->assertArrayNotHasKey('discount_type', $data);
     }
 
@@ -61,8 +60,8 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals('9.00', $data['price']['final_price']);
         $this->assertArrayHasKey('amount', $data['price']);
         $this->assertEquals('10.00', $data['price']['amount']);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('1.00', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('1.00', $data['price']['discount_amount']);
         $this->assertArrayHasKey('discount_type', $data['price']);
         $this->assertEquals('CONCRETE', $data['price']['discount_type']);        
     }
@@ -83,8 +82,8 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals('8.00', $data['price']['final_price']);
         $this->assertArrayHasKey('amount', $data['price']);
         $this->assertEquals('10.00', $data['price']['amount']);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('20.00', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('20.00', $data['price']['discount_amount']);
         $this->assertArrayHasKey('discount_type', $data['price']);
         $this->assertEquals('PERCENTUAL', $data['price']['discount_type']);        
     }
