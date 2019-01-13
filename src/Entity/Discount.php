@@ -17,35 +17,24 @@ class Discount
     private $amount;
 
     /**
-    * @ORM\Column(type="string", length=255, nullable=TRUE)
+    * @ORM\Column(type="string", length=255)
     */
     private $discountType;
 
-    public function __construct(int $amount = NULL, string $type = NULL)
+    public function __construct(int $amount, string $type)
     {
         $this->amount = abs($amount);
         $this->discountType = $type;
     }
 
-    public function getAmount() : ?int
+    public function getAmount() : int
     {
         return $this->amount;
     }
 
-    public function getType() : ?string
+    public function getType() : string
     {
         return $this->discountType;
     }
-
-    public function setType(string $type) 
-    {
-        $this->discountType = $type;
-    }
-
-    public function setAmount(int $amount)
-    {
-        $this->amount = $amount;
-    }
-
 }
 

@@ -1,6 +1,8 @@
 <?php
 namespace App\Tests\Controller;
 
+use App\Entity\Discount;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
@@ -106,6 +108,26 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
+    public function testUpdateProductByIdProductInexistent()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+            'name' => 'Product New Name'
+        ];
+
+        $client->request(
+            'PATCH',
+            '/products/11',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
     public function testChangeConcretePriceProductInexistent()
     {
         $client = static::createClient();
@@ -122,7 +144,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
-/*
+
     public function testChangeConcreteDiscountProductInexistent()
     {
         $client = static::createClient();
@@ -165,12 +187,15 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('name', $data);
         $this->assertEquals('Product 4', $data['name']);
-        $this->assertArrayHasKey('final_price', $data);
-        $this->assertEquals('34EUR', $data['final_price']);
-        $this->assertArrayHasKey('original_price', $data);
-        $this->assertEquals('40EUR', $data['original_price']);
-        $this->assertArrayHasKey('discount', $data);
-        $this->assertEquals('15%', $data['discount']);
+        $this->assertArrayHasKey('price', $data); 
+        $this->assertArrayHasKey('final_price', $data['price']);
+        $this->assertEquals('34.00', $data['price']['final_price']);
+        $this->assertArrayHasKey('amount', $data['price']);
+        $this->assertEquals('40.00', $data['price']['amount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('15.00', $data['price']['discount_amount']);
+        $this->assertArrayHasKey('discount_type', $data['price']);
+        $this->assertEquals(Discount::PERCENTUAL, $data['price']['discount_type']);
     }
 
     public function testCreateProductNoDiscount()
@@ -197,11 +222,13 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('name', $data);
         $this->assertEquals('Product 4', $data['name']);
-        $this->assertArrayHasKey('final_price', $data);
-        $this->assertEquals('40EUR', $data['final_price']);
-        $this->assertArrayHasKey('original_price', $data);
-        $this->assertEquals('40EUR', $data['original_price']);
-        $this->assertArrayNotHasKey('discount', $data);
+        $this->assertArrayHasKey('price', $data); 
+        $this->assertArrayHasKey('final_price', $data['price']);
+        $this->assertEquals('40.00', $data['price']['final_price']);
+        $this->assertArrayHasKey('amount', $data['price']);
+        $this->assertEquals('40.00', $data['price']['amount']);
+        $this->assertArrayNotHasKey('discount_amount', $data['price']);
+        $this->assertArrayNotHasKey('discount_type', $data['price']);
     }
 
     public function testCreateProductNoName()
@@ -243,7 +270,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
-
+ 
     public function testUpdateProductName()
     {
         $client = static::createClient();
@@ -263,7 +290,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
     }
-
+ 
     public function testUpdateProductPrice()
     {
         $client = static::createClient();
@@ -303,5 +330,5 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
     }
- */
+ 
 }

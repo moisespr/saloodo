@@ -31,14 +31,17 @@ class Price
      */
     private $discountType;
 
-    public function __construct(int $amount, ?Discount $discount = NULL)
+    public function __construct(int $amount = NULL, ?Discount $discount = NULL)
     {
         $this->setAmount($amount);
         $this->setDiscount($discount);
     }
 
-    public function setAmount(int $amount)
+    public function setAmount(?int $amount)
     {
+        if(is_null($amount)) {
+            return;
+        }
         $this->amount = $amount;
         $this->finalPrice = $this->calculateFinalPrice();
     }

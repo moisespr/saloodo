@@ -14,7 +14,7 @@ class ProductTest extends TestCase
         $discount = new Discount(100, Discount::CONCRETE);
         $amount = 1000;
         $price = new Price($amount, $discount);
-        $name = "Product 1";
+        $name = 'Product 1';
         $product = new Product($name, $price);
 
         $this->assertEquals($name, $product->getName());

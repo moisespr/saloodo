@@ -23,7 +23,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $request_data = ['amount' => '5', 'discount' => '1'];
+        $request_data = ['amount' => '5'];
         $client->request(
             'PATCH',
             '/products/1/price',
@@ -43,9 +43,9 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertArrayHasKey('price', $data);
         $this->assertArrayHasKey('amount', $data['price']);
-        $this->assertEquals('0.50', $data['price']['amount']);
+        $this->assertEquals('5.00', $data['price']['amount']);
     }
-/*
+
     public function testChangeConcretePriceIntegerWithCurrencyCode()
     {
         $client = static::createClient();
@@ -150,8 +150,8 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('price', $data);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('1.00', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('1.00', $data['price']['discount_amount']);
         $this->assertArrayHasKey('final_price', $data['price']);
         $this->assertEquals('9.00', $data['price']['final_price']);
         $this->assertArrayHasKey('discount_type', $data['price']);
@@ -181,8 +181,8 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('price', $data);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('1.00', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('1.00', $data['price']['discount_amount']);
         $this->assertArrayHasKey('final_price', $data['price']);
         $this->assertEquals('9.00', $data['price']['final_price']);
         $this->assertArrayHasKey('discount_type', $data['price']);
@@ -212,8 +212,8 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('price', $data);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('1.50', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('1.50', $data['price']['discount_amount']);
         $this->assertArrayHasKey('final_price', $data['price']);
         $this->assertEquals('8.50', $data['price']['final_price']);
         $this->assertArrayHasKey('discount_type', $data['price']);
@@ -243,14 +243,14 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('price', $data);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('1.50', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('1.50', $data['price']['discount_amount']);
         $this->assertArrayHasKey('final_price', $data['price']);
         $this->assertEquals('8.50', $data['price']['final_price']);
         $this->assertArrayHasKey('discount_type', $data['price']);
         $this->assertEquals('CONCRETE', $data['price']['discount_type']);
     }
-
+ 
     public function testChangePercentualDiscount()
     {
         $client = static::createClient();
@@ -274,12 +274,13 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('price', $data);
-        $this->assertArrayHasKey('discount', $data['price']);
-        $this->assertEquals('10.00', $data['price']['discount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('10.00', $data['price']['discount_amount']);
         $this->assertArrayHasKey('final_price', $data['price']);
         $this->assertEquals('9.00', $data['price']['final_price']);
         $this->assertArrayHasKey('discount_type', $data['price']);
         $this->assertEquals('PERCENTUAL', $data['price']['discount_type']);
     }
- */
+ 
+
 }

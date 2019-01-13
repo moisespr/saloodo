@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -12,25 +14,28 @@ class Product
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @ORM\Embedded(class = "Price")
+     * @Assert\NotBlank
      */
     private $price;
 
-    public function __construct(string $name, Price $price)
+    public function __construct(string $name = null, Price $price = null)
     {
         $this->name = $name;
         $this->price = $price;
     }
-
+ 
     public function setId(int $id)
     {
         $this->id = $id;
@@ -51,6 +56,14 @@ class Product
         $this->price = $price;
     }
 
+    public function setDiscount(Discount $discount)
+    {
+        if(is_null($discount) || is_null($this->price)) {
+            return;
+        }
+        $this->price->setDiscount($discount);
+    }
+
     public function getName()
     {
         return $this->name;
@@ -59,6 +72,13 @@ class Product
     public function getPrice()
     {
         return $this->price;
+    }
+
+    public function getDiscount() {
+        if(is_null($this->price)) {
+            return null;
+        }
+        return $this->price->getDiscount();
     }
 
 }

@@ -14,6 +14,8 @@ class ProductType extends AbstractType
         $builder
             ->add('id')
             ->add('name')
+            ->add('price', PriceType::class)
+            ->add('discount', DiscountType::class)
         ;
     }
 
@@ -24,3 +26,4 @@ class ProductType extends AbstractType
         ]);
     }
 }
+
