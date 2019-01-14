@@ -6,6 +6,7 @@ use App\Entity\Discount;
 use App\Entity\Price;
 use App\Entity\Product;
 
+use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\JsonDeserializationVisitor;
 use JMS\Serializer\Context;
@@ -91,6 +92,21 @@ class ProductHandlerTest extends TestCase
         $this->assertArrayHasKey('discount_type', $data['price']);
         $this->assertEquals(Discount::CONCRETE, $data['price']['discount_type']);
 
+    }
+
+    public function testConfigSubscribingMethods()
+    {
+        $config = ProductHandler::getSubscribingMethods();
+        $this->assertEquals(1, count($config));
+        $config = $config[0];
+        $this->assertArrayHasKey('direction', $config);
+        $this->assertEquals(GraphNavigator::DIRECTION_SERIALIZATION, $config['direction']);
+        $this->assertArrayHasKey('format', $config);
+        $this->assertEquals('json', $config['format']);
+        $this->assertArrayHasKey('type', $config);
+        $this->assertEquals('App\\Entity\\Product', $config['type']);
+        $this->assertArrayHasKey('method', $config);
+        $this->assertEquals('serializeProductToJson', $config['method']);
     }
 }
 

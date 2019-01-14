@@ -49,4 +49,19 @@ class AmountFormatterTest extends WebTestCase
         $formatter = new AmountFormatter($amount);
         $this->assertEquals('550', $formatter->getFormatted());
     }
+
+    public function testSettingWithMethod()
+    {
+        $amount = '5.5EUR';
+        $formatter = new AmountFormatter($amount);
+        $formatter->setAmount('3.23EUR');
+        $this->assertEquals('323', $formatter->getFormatted());
+    }
+
+    public function testGetAmount() 
+    {
+        $amount = '10';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('10', $formatter->getAmount());
+    }
 }

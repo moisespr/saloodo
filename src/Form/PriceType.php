@@ -100,10 +100,15 @@ class PriceType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Price::class,
             'empty_data' => function (FormInterface $form) {
-                if(is_null($form->get('amount')->getData()) && is_null($form->get('discount')->getData()))
+                if($this->hasPrice($form))
                     return null;
                 return new Price();
             }
         ]);
+    }
+
+    private function hasPrice(FormInterface $form)
+    {
+        return is_null($form->get('amount')->getData()) && is_null($form->get('discount')->getData());
     }
 }

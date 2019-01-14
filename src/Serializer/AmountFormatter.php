@@ -10,23 +10,14 @@ class AmountFormatter
 
     private $formatted;
 
-    private $decimalPlaces;
-
-    public function __construct($amount, $decimalPlaces = 2)
+    public function __construct($amount)
     {
         $this->amount = $amount;
-        $this->decimalPlaces = $decimalPlaces;
     }
 
     public function setAmount($amount)
     {
         $this->amount = $amount;
-        $this->cleanFormatted();
-    }
-
-    public function setDecimalPlaces($decimalPlaces)
-    {
-        $this->decimalPlaces = $decimalPlaces;
         $this->cleanFormatted();
     }
 
