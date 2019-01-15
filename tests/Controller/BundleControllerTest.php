@@ -21,14 +21,14 @@ class BundleControllerTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('bundles', $data);
-        $this->assertEquals(1, count($data['bundles']));
+        $this->assertEquals(2, count($data['bundles']));
     } 
 
     public function testGetBundleById()
     {
         $client = static::createClient();
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -307,7 +307,7 @@ class BundleControllerTest extends WebTestCase
 
         $client->request(
             'DELETE',
-            '/bundles/4/products',
+            '/bundles/5/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -326,7 +326,7 @@ class BundleControllerTest extends WebTestCase
 
         $client->request(
             'DELETE',
-            '/bundles/4/products',
+            '/bundles/5/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -347,7 +347,7 @@ class BundleControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/bundles/4/products',
+            '/bundles/5/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -366,7 +366,7 @@ class BundleControllerTest extends WebTestCase
 
         $client->request(
             'POST',
-            '/bundles/4/products',
+            '/bundles/5/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),

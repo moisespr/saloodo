@@ -14,7 +14,7 @@ class Bundle extends Product
 {
 
     /**
-     * @ORM\ManyToMany(targetEntity="Product", cascade={"merge"})
+     * @ORM\ManyToMany(targetEntity="Product")
      * @ORM\JoinTable(name="bundles_products", 
      *  joinColumns={@ORM\JoinColumn(name="bundle_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}

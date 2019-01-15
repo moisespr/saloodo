@@ -33,3 +33,4 @@ services:
         class: App\Serializer\BundleHandler
         tags:
             - { name: jms_serializer.subscribing_handler }
+

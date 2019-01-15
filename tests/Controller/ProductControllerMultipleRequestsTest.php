@@ -12,10 +12,10 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('DELETE', '/products/3');        
+        $client->request('DELETE', '/products/4');
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/products/3');        
+        $client->request('GET', '/products/4');        
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 

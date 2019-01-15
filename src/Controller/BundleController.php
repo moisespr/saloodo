@@ -11,6 +11,8 @@ use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Delete;
 
+use Doctrine\DBAL\Exception as DoctrineException;
+
 use App\Form\PriceType;
 use App\Form\ProductType;
 use App\Form\BundleType;
@@ -43,8 +45,6 @@ class BundleController extends AbstractFOSRestController
             throw new ResourceNotFoundException('Bundle not found');
         }
 
-        $products = $bundle->getProducts();
-
         return $this->handleView(
             $this->view($bundle, Response::HTTP_OK)
         );
@@ -60,9 +60,15 @@ class BundleController extends AbstractFOSRestController
             throw new ResourceNotFoundException('Bundle not found');
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($bundle);
-        $entityManager->flush();
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($bundle);
+            $entityManager->flush();
+        } catch(DoctrineException\ForeignKeyConstraintViolationException $e) {
+            return $this->handleView(
+                $this->view('', Response::HTTP_CONFLICT)
+            );
+        }
         
         return $this->handleView(
             $this->view()
@@ -173,15 +179,33 @@ class BundleController extends AbstractFOSRestController
         }
 
         $products = $data['products'];
+        $added = false;
         foreach($products as $productId) {
+            if($productId == $id) 
+                continue;
             $product = $this->getDoctrine()
                 ->getRepository(Product::class)
                 ->find($productId);
-            $bundle->addProduct($product);
+            if($product) {
+                $bundle->addProduct($product);
+                $added = true;
+            }
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+        if(!$added) {
+            return $this->handleView(
+                $this->view(null, Response::HTTP_BAD_REQUEST)
+            );
+        }
+
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->flush();
+        } catch(DoctrineException\UniqueConstraintViolationException $e) {
+            return $this->handleView(
+                $this->view('', Response::HTTP_CONFLICT)
+            );
+        }
 
         $view = $this->view(null, Response::HTTP_NO_CONTENT);
         return $this->handleView(

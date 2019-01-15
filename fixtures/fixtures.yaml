@@ -1,0 +1,61 @@
+# fixtures/products.yaml
+
+App\Entity\Discount:
+    discount_1:
+        __construct: [100, 'CONCRETE']
+    discount_2:
+        __construct: [2000, 'PERCENTUAL']
+
+App\Entity\Price:
+    price_1:
+        __construct: [1000]
+    price_2:
+        __construct: [1000, '@discount_1']
+    price_3:
+        __construct: [1000, '@discount_2']
+    price_4:
+        __construct: [2000]
+    price_5:
+        __construct: [1500]
+    price_6:
+        __construct: [1500]
+
+App\Entity\Product:
+    product_{1..4}:
+        __construct: ['Product <current()>', '@price_<current()>']
+        id: <current()>
+
+App\Entity\Bundle:
+    bundle_1:
+        name: 'Bundle 1'
+        id: 5
+        price: '@price_5'
+        products: ['@product_2', '@product_3']
+    bundle_2:
+        name: 'Bundle 2'
+        id: 6
+        price: '@price_6'
+        products: ['@product_1', '@product_2']
+
+App\Entity\Customer:
+    customer_1:
+        name: 'Customer 1'
+        id: 1
+
+App\Entity\Order:
+    order_1:
+        id: 1
+        customer: '@customer_1'
+        items: ['@order_item_1', '@order_item_2']
+
+App\Entity\OrderItem:
+    order_item_1:
+        id: 1
+        product: '@product_3'
+        order: '@order_1'
+    order_item_2:
+        id: 2
+        product: '@bundle_2'
+        order: '@order_1'
+
+

@@ -21,7 +21,7 @@ class ProductControllerTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('products', $data);
-        $this->assertEquals(4, count($data['products']));
+        $this->assertEquals(6, count($data['products']));
     } 
 
     public function testGetProductByIdNoDiscount()

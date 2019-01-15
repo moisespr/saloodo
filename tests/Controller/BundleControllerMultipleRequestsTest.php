@@ -12,10 +12,10 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('DELETE', '/bundles/4');        
+        $client->request('DELETE', '/bundles/5');        
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');        
+        $client->request('GET', '/bundles/5');        
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
@@ -26,7 +26,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['amount' => '5'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -35,7 +35,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -53,7 +53,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['amount' => '5EUR'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -62,7 +62,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -80,7 +80,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['amount' => '5.50'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -89,7 +89,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -107,7 +107,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['amount' => '5.50EUR'];
         $client->request(
             'PATCH', 
-            '/bundles/4/price', 
+            '/bundles/5/price', 
             array(), 
             array(), 
             array('CONTENT_TYPE' => 'application/json'),
@@ -116,7 +116,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -134,7 +134,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['discount' => '1'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -143,7 +143,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -165,7 +165,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['discount' => '1EUR'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -174,7 +174,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -196,7 +196,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['discount' => '1.5'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -205,7 +205,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -227,7 +227,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['discount' => '1.5EUR'];
         $client->request(
             'PATCH', 
-            '/bundles/4/price', 
+            '/bundles/5/price', 
             array(), 
             array(), 
             array('CONTENT_TYPE' => 'application/json'),
@@ -236,7 +236,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -258,7 +258,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $request_data = ['discount' => '10%'];
         $client->request(
             'PATCH',
-            '/bundles/4/price',
+            '/bundles/5/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -267,7 +267,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/products/4');
+        $client->request('GET', '/products/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -293,7 +293,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $client->request(
             'PATCH',
-            '/bundles/4',
+            '/bundles/5',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -302,7 +302,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
 
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -323,7 +323,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $client->request(
             'PATCH',
-            '/bundles/4',
+            '/bundles/5',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -332,7 +332,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
        
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -355,7 +355,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $client->request(
             'PATCH',
-            '/bundles/4',
+            '/bundles/5',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -364,7 +364,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
      
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -385,13 +385,13 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $request_data = [
             'products' => [
-                3
+                1
             ]
         ];
 
         $client->request(
             'POST',
-            '/bundles/4/products',
+            '/bundles/5/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -400,7 +400,7 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
      
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -410,19 +410,19 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
         $this->assertEquals(3, count($data['products']));
     }
  
-    public function testDeleteProductFromBundle()
+    public function testAddProductToBundlePlusInexistent()
     {
         $client = static::createClient();
 
         $request_data = [
             'products' => [
-                1
+                1, 11
             ]
         ];
 
         $client->request(
-            'DELETE',
-            '/bundles/4/products',
+            'POST',
+            '/bundles/5/products',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -431,7 +431,144 @@ class BundleControllerMultipleRequestsTest extends WebTestCase
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
      
-        $client->request('GET', '/bundles/4');
+        $client->request('GET', '/bundles/5');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('products', $data);
+        $this->assertEquals(3, count($data['products']));
+    }
+
+
+    public function testAddProductToBundleAlreadyThere()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+            'products' => [
+                3
+            ]
+        ];
+
+        $client->request(
+            'POST',
+            '/bundles/5/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(409, $client->getResponse()->getStatusCode());
+    }
+  
+    public function testAddProductToBundleNoProducts()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+        ];
+
+        $client->request(
+            'POST',
+            '/bundles/5/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
+    public function testAddProductToBundleProductsEmpty()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+            'products' => []
+        ];
+
+        $client->request(
+            'POST',
+            '/bundles/5/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
+    public function testAddProductToBundleProductInexistentOnly()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+            'products' => [
+                11
+            ]
+        ];
+
+        $client->request(
+            'POST',
+            '/bundles/5/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
+    public function testAddBundleItselfToBundle()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+            'products' => [
+                5
+            ]
+        ];
+
+        $client->request(
+            'POST',
+            '/bundles/5/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
+    public function testDeleteProductFromBundle()
+    {
+        $client = static::createClient();
+
+        $request_data = [
+            'products' => [
+                2
+            ]
+        ];
+
+        $client->request(
+            'DELETE',
+            '/bundles/5/products',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+     
+        $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
