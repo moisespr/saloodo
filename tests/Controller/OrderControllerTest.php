@@ -20,8 +20,6 @@ class OrderControllerTest extends WebTestCase
 
         $data = json_decode($client->getResponse()->getContent(), true);
 
-        print_r($data);
-
         $this->assertArrayHasKey('items', $data);
         $this->assertEquals(2, count($data['items']));
 
