@@ -1,6 +1,8 @@
 <?php
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,7 +14,13 @@ class Discount
     const PERCENTUAL = 'PERCENTUAL';
 
     /**
-    * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer")
+     * @Assert\LessThan(
+     *  value = 100
+     * )
+     * @Assert\GreaterThan(
+     *  value = 0
+     * )
     */
     private $amount;
 

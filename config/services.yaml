@@ -29,3 +29,7 @@ services:
         class: App\Serializer\ProductHandler
         tags:
             - { name: jms_serializer.subscribing_handler }
+    jms_serializer.bundle_handler:
+        class: App\Serializer\BundleHandler
+        tags:
+            - { name: jms_serializer.subscribing_handler }

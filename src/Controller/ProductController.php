@@ -3,13 +3,13 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Put;
-use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Controller\Annotations\Patch;
+
+use Doctrine\DBAL\Exception as DoctrineException;
 
 use App\Form\PriceType;
 use App\Form\ProductType;
@@ -23,7 +23,7 @@ class ProductController extends AbstractFOSRestController
         $products = $this->getDoctrine()
             ->getRepository(Product::class)
             ->findAll();
-   
+
         $data = ['products' => $products];
         
         return $this->handleView(
@@ -56,13 +56,16 @@ class ProductController extends AbstractFOSRestController
             throw new ResourceNotFoundException('Product not found');
         }
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($product);
-        $entityManager->flush();
+        try {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($product);
+            $entityManager->flush();
+        } catch(DoctrineException\ForeignKeyConstraintViolationException $e) {
+            return $this->handleView(
+                $this->view('', Response::HTTP_CONFLICT)
+            );
+        }
         
-        $product = $this->getDoctrine()
-                        ->getRepository(Product::class)
-                                    ->find($id);
         return $this->handleView(
             $this->view()
         );

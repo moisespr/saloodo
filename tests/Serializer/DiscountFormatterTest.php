@@ -5,9 +5,9 @@ use App\Entity\Discount;
 use App\Serializer\AmountFormatter;
 use App\Serializer\DiscountFormatter;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use PHPUnit\Framework\TestCase;
 
-class DiscountFormatterTest extends WebTestCase
+class DiscountFormatterTest extends TestCase
 {
 
     public function testConcreteInteger() 

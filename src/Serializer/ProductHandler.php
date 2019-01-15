@@ -9,6 +9,7 @@ use JMS\Serializer\Context;
 
 use App\Entity\Discount;
 use App\Entity\Product;
+use App\Entity\Bundle;
 use App\Entity\Price;
 
 class ProductHandler implements SubscribingHandlerInterface
@@ -30,7 +31,8 @@ class ProductHandler implements SubscribingHandlerInterface
         $data = [
             'id' => $product->getId(),
             'name' => $product->getName(),
-            'price' => $this->serializePriceToJson($product->getPrice())
+            'price' => $this->serializePriceToJson($product->getPrice()),
+            'type' => $product->getType() 
         ];
         return $data;
     }

@@ -3,9 +3,9 @@ namespace App\Tests\Serializer;
 
 use App\Serializer\AmountFormatter;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use PHPUnit\Framework\TestCase;
 
-class AmountFormatterTest extends WebTestCase
+class AmountFormatterTest extends TestCase
 {
 
     public function testIntegerAmountNoCurrency() 
@@ -64,4 +64,47 @@ class AmountFormatterTest extends WebTestCase
         $formatter = new AmountFormatter($amount);
         $this->assertEquals('10', $formatter->getAmount());
     }
+
+    public function testIntegerAmountNoCurrencyNegative() 
+    {
+        $amount = '-10';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('1000', $formatter->getFormatted());
+    }
+
+    public function testDecimalAmountNoCurrencyNegative() 
+    {
+        $amount = '-5.50';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('550', $formatter->getFormatted());
+    }
+
+    public function testOneDecimalAmountNoCurrencyNegative() 
+    {
+        $amount = '-5.5';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('550', $formatter->getFormatted());
+    }
+
+    public function testIntegerAmountWithCurrencyNegative() 
+    {
+        $amount = '-10EUR';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('1000', $formatter->getFormatted());
+    }
+
+    public function testDecimalAmountWithCurrencyNegative() 
+    {
+        $amount = '-5.50EUR';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('550', $formatter->getFormatted());
+    }
+
+    public function testOneDecimalAmountWithCurrencyNegative() 
+    {
+        $amount = '-5.5EUR';
+        $formatter = new AmountFormatter($amount);
+        $this->assertEquals('550', $formatter->getFormatted());
+    }
+
 }

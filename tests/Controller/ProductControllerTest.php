@@ -21,7 +21,7 @@ class ProductControllerTest extends WebTestCase
         $data = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertArrayHasKey('products', $data);
-        $this->assertEquals(3, count($data['products']));
+        $this->assertEquals(4, count($data['products']));
     } 
 
     public function testGetProductByIdNoDiscount()
@@ -43,6 +43,8 @@ class ProductControllerTest extends WebTestCase
         $this->assertEquals('10.00', $data['price']['final_price']);
         $this->assertArrayNotHasKey('discount_amount', $data);
         $this->assertArrayNotHasKey('discount_type', $data);
+        $this->assertArrayHasKey('type', $data);
+        $this->assertEquals('Product', $data['type']);
     }
 
     public function testGetProductByIdWithConcreteDiscount()
@@ -270,65 +272,5 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
- 
-    public function testUpdateProductName()
-    {
-        $client = static::createClient();
 
-        $request_data = [
-            'name' => 'Product New Name'
-        ];
-
-        $client->request(
-            'PATCH',
-            '/products/1',
-            array(),
-            array(),
-            array('CONTENT_TYPE' => 'application/json'),
-            json_encode($request_data)
-        );
-
-        $this->assertEquals(204, $client->getResponse()->getStatusCode());
-    }
- 
-    public function testUpdateProductPrice()
-    {
-        $client = static::createClient();
-
-        $request_data = [
-            'price' => '15'
-        ];
-
-        $client->request(
-            'PATCH',
-            '/products/1',
-            array(),
-            array(),
-            array('CONTENT_TYPE' => 'application/json'),
-            json_encode($request_data)
-        );
-
-        $this->assertEquals(204, $client->getResponse()->getStatusCode());
-    }
-
-    public function testUpdateProductDiscount()
-    {
-        $client = static::createClient();
-
-        $request_data = [
-            'discount' => '5%'
-        ];
-
-        $client->request(
-            'PATCH',
-            '/products/1',
-            array(),
-            array(),
-            array('CONTENT_TYPE' => 'application/json'),
-            json_encode($request_data)
-        );
-
-        $this->assertEquals(204, $client->getResponse()->getStatusCode());
-    }
- 
 }

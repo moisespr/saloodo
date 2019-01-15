@@ -34,6 +34,10 @@ class AmountFormatter
 
         $formatting = $this->amount;
 
+        if($this->isNegative($formatting)) {
+            $formatting = $this->removeSign($formatting);
+        }
+
         if($this->hasCurrency($formatting)) 
         {
             // lets just ignore currency for now as the design doesn't support it
@@ -46,6 +50,16 @@ class AmountFormatter
     private function isValid()
     {
         return true;
+    }
+
+    private function isNegative($amount)
+    {
+        return substr($amount, 0, 1) === '-';
+    }
+
+    private function removeSign($amount)
+    {
+        return substr($amount, 1);
     }
 
     private function hasCurrency($amount)

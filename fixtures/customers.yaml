@@ -1,0 +1,7 @@
+# fixtures/customers.yaml
+
+App\Entity\Customer:
+    customer_1:
+        name: 'Customer 1'
+        id: 1
+
