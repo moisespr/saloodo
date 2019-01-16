@@ -317,6 +317,33 @@ Body data format
 }
 ```
 
+##### `POST /bundles/{id}/products`
+*ADMIN role only*
+
+Add products to bundle by ID.
+
+The products list should contains only integers representing valid product's IDs.
+
+Body data format
+```json
+{
+  "products": [1, 2]
+}
+```
+
+##### `DELETE /bundles/{id}/products`
+*ADMIN role only*
+
+Deletes products from bundle by ID.
+
+The products list should contains only integers representing valid product's IDs.
+
+Body data format
+```json
+{
+  "products": [1, 2]
+}
+```
 #### _Order_
 
 ##### `GET /orders/{id}`
