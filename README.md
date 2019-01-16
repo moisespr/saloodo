@@ -137,7 +137,7 @@ The following formats are accepted as price and discount amount:
 
 This project uses Symfony Security for basic token authentication.
 
-The requests should send along a `X-AUTH-TOKEN`.
+The requests should contains a X-AUTH-TOKEN header.
 
 As this is a challenge project, it comes with two tokens and it's not possibile to create new tokens for now.
 
