@@ -131,7 +131,7 @@ class BundleControllerTest extends WebTestCase
 
         $request_data = ['value' => '5.50EUR'];
         $client->request(
-            'PUT',
+            'PATCH',
             '/bundles/11/discount',
             array(),
             array(),
