@@ -163,10 +163,10 @@ class ProductControllerTest extends WebTestCase
     {
         $client = $this->createAdminClient();
 
-        $request_data = ['value' => '5.50EUR'];
+        $request_data = ['discount' => '5.50EUR'];
         $client->request(
-            'PUT',
-            '/products/11/discount',
+            'PATCH',
+            '/products/11/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),

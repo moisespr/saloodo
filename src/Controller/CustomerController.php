@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Swagger\Annotations as SWG;
+
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 
 use App\Entity\Customer;
@@ -16,6 +18,11 @@ class CustomerController extends AbstractFOSRestController
 {
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=200,
+     *  description="List all customers."
+     *  )
+     * @SWG\Tag(name="customers")
      */
     public function getCustomersAction()
     {
@@ -32,6 +39,11 @@ class CustomerController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=200,
+     *  description="Retrieves one customer by ID."
+     *  )
+     * @SWG\Tag(name="customers")
      */
     public function getCustomerAction($id)
     {
@@ -50,6 +62,11 @@ class CustomerController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=200,
+     *  description="Deletes on cutomer by ID."
+     *  )
+     * @SWG\Tag(name="customers")
      */
     public function deleteCustomerAction($id)
     {
@@ -72,6 +89,11 @@ class CustomerController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=201,
+     *  description="Creates on customer."
+     *  )
+     * @SWG\Tag(name="customers")
      */
     public function postCustomersAction(Request $request)
     {
@@ -98,6 +120,11 @@ class CustomerController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Updates one customer by ID."
+     *  )
+     * @SWG\Tag(name="customers")
      */
     public function patchCustomerAction(Request $request, $id)
     {

@@ -15,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Doctrine\DBAL\Exception as DoctrineException;
 
+use Swagger\Annotations as SWG;
+
 use App\Form\PriceType;
 use App\Form\ProductType;
 use App\Form\BundleType;
@@ -26,6 +28,11 @@ class BundleController extends AbstractFOSRestController
 {
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=200,
+     *  description="List all bundles"
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function getBundlesAction()
     {
@@ -42,6 +49,11 @@ class BundleController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=200,
+     *  description="Retrieve one bundle by ID."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function getBundleAction($id)
     {
@@ -60,6 +72,11 @@ class BundleController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=200,
+     *  description="Deletes one bundle by ID."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function deleteBundleAction($id)
     {
@@ -88,6 +105,11 @@ class BundleController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=201,
+     *  description="Creates one bundle. The products list should contains only integers representing valid product's IDs."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function postBundlesAction(Request $request)
     {
@@ -114,6 +136,11 @@ class BundleController extends AbstractFOSRestController
  
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Updates one bundle by ID."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function patchBundleAction(Request $request, $id)
     {
@@ -146,6 +173,11 @@ class BundleController extends AbstractFOSRestController
     /**
      * @Patch("/bundles/{id}/price")
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Updates bundle's price or discount by ID."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function updateBundlePrice(Request $request, $id)
     {
@@ -178,6 +210,11 @@ class BundleController extends AbstractFOSRestController
     /**
      * @Post("/bundles/{id}/products")
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Add products to bundle by ID. The products list should contains only integers representing valid product's IDs."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function addProductsToBundle(Request $request, $id)
     {
@@ -235,6 +272,11 @@ class BundleController extends AbstractFOSRestController
     /**
      * @Delete("/bundles/{id}/products")
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Deletes product from bundle by ID."
+     * )
+     * @SWG\Tag(name="bundles")
      */
     public function deleteProductsFromBundle(Request $request, $id)
     {

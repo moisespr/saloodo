@@ -13,6 +13,8 @@ use FOS\RestBundle\Controller\Annotations\Patch;
 
 use Doctrine\DBAL\Exception as DoctrineException;
 
+use Swagger\Annotations as SWG;
+
 use App\Form\PriceType;
 use App\Form\ProductType;
 
@@ -22,6 +24,11 @@ class ProductController extends AbstractFOSRestController
 {
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=200,
+     *  description="List all products"
+     *  )
+     * @SWG\Tag(name="products")
      */
     public function getProductsAction()
     {
@@ -38,6 +45,11 @@ class ProductController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=200,
+     *  description="List one product by ID."
+     *  )
+     * @SWG\Tag(name="products")
      */
     public function getProductAction($id)
     {
@@ -56,6 +68,11 @@ class ProductController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=200,
+     *  description="Deletes one product by ID."
+     *  )
+     * @SWG\Tag(name="products")
      */
     public function deleteProductAction($id)
     {
@@ -84,6 +101,11 @@ class ProductController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=201,
+     *  description="Creates one product."
+     *  )
+     * @SWG\Tag(name="products")
      */
     public function postProductsAction(Request $request)
     {
@@ -110,6 +132,11 @@ class ProductController extends AbstractFOSRestController
  
     /**
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Updates one product by ID."
+     *  )
+     * @SWG\Tag(name="products")
      */
     public function patchProductAction(Request $request, $id)
     {
@@ -142,6 +169,11 @@ class ProductController extends AbstractFOSRestController
     /**
      * @Patch("/products/{id}/price")
      * @IsGranted("ROLE_ADMIN")
+     * @SWG\Response(
+     *  response=204,
+     *  description="Updates product's price or discount by ID."
+     * )
+     * @SWG\Tag(name="products")
      */
     public function updateProductPrice(Request $request, $id)
     {

@@ -129,10 +129,10 @@ class BundleControllerTest extends WebTestCase
     {
         $client = $this->createAdminClient();
 
-        $request_data = ['value' => '5.50EUR'];
+        $request_data = ['discount' => '5.50EUR'];
         $client->request(
             'PATCH',
-            '/bundles/11/discount',
+            '/bundles/11/price',
             array(),
             array(),
             array('CONTENT_TYPE' => 'application/json'),
@@ -179,6 +179,48 @@ class BundleControllerTest extends WebTestCase
         $this->assertArrayHasKey('products', $data);
         $this->assertEquals(1, count($data['products']));        
     }
+
+    public function testCreateBundleOneProductWithDiscount()
+    {
+        $client = $this->createAdminClient();
+        
+        $request_data = [
+            'name' => 'Bundle 1',
+            'price' => '10EUR',
+            'discount' => '10%',
+            'products' => [
+                1
+            ]
+        ];
+
+        $client->request(
+            'POST',
+            '/bundles',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
+        
+        $data = json_decode($client->getResponse()->getContent(), true);        
+
+        $this->assertArrayHasKey('name', $data);
+        $this->assertEquals('Bundle 1', $data['name']);
+        $this->assertArrayHasKey('price', $data); 
+        $this->assertArrayHasKey('final_price', $data['price']);
+        $this->assertEquals('9.00', $data['price']['final_price']);
+        $this->assertArrayHasKey('amount', $data['price']);
+        $this->assertEquals('10.00', $data['price']['amount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('10.00', $data['price']['discount_amount']);
+        $this->assertArrayHasKey('discount_type', $data['price']);
+        $this->assertEquals('PERCENTUAL', $data['price']['discount_type']);
+        $this->assertArrayHasKey('products', $data);
+        $this->assertEquals(1, count($data['products']));        
+    }
+
 
     public function testCreateBundleTwoProducts()
     {

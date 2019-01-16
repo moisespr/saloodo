@@ -564,6 +564,78 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
         $this->assertArrayHasKey('discount_type', $data['price']);
         $this->assertEquals('PERCENTUAL', $data['price']['discount_type']);
     }
+
+    public function testChangePriceAndDiscount()
+    {
+        $client = $this->createAdminClient();
+
+        $request_data = [
+            'price' => '100',
+            'discount' => '10%'
+        ];
+        $client->request(
+            'PATCH', 
+            '/products/1', 
+            array(), 
+            array(), 
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+
+        $client->request('GET', '/products/1');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('price', $data);
+        $this->assertArrayHasKey('amount', $data['price']);
+        $this->assertEquals('100.00', $data['price']['amount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('10.00', $data['price']['discount_amount']);
+        $this->assertArrayHasKey('final_price', $data['price']);
+        $this->assertEquals('90.00', $data['price']['final_price']);
+        $this->assertArrayHasKey('discount_type', $data['price']);
+        $this->assertEquals('PERCENTUAL', $data['price']['discount_type']);
+    }
+ 
+    public function testChangePriceAndDiscountByPrice()
+    {
+        $client = $this->createAdminClient();
+
+        $request_data = [
+            'amount' => '100',
+            'discount' => '10%'
+        ];
+        $client->request(
+            'PATCH', 
+            '/products/1/price', 
+            array(), 
+            array(), 
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode($request_data)
+        );
+
+        $this->assertEquals(204, $client->getResponse()->getStatusCode());
+
+        $client->request('GET', '/products/1');
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+
+        $this->assertArrayHasKey('price', $data);
+        $this->assertArrayHasKey('amount', $data['price']);
+        $this->assertEquals('100.00', $data['price']['amount']);
+        $this->assertArrayHasKey('discount_amount', $data['price']);
+        $this->assertEquals('10.00', $data['price']['discount_amount']);
+        $this->assertArrayHasKey('final_price', $data['price']);
+        $this->assertEquals('90.00', $data['price']['final_price']);
+        $this->assertArrayHasKey('discount_type', $data['price']);
+        $this->assertEquals('PERCENTUAL', $data['price']['discount_type']);
+    }
  
     public function testUpdateProductName()
     {

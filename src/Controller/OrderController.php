@@ -7,6 +7,8 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+use Swagger\Annotations as SWG;
+
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 
 use App\Entity\Order;
@@ -17,6 +19,11 @@ class OrderController extends AbstractFOSRestController
 
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=200,
+     *  description="Retrieves one order by ID."
+     *  )
+     * @SWG\Tag(name="orders")
      */
     public function getOrderAction($id)
     {
@@ -35,6 +42,11 @@ class OrderController extends AbstractFOSRestController
  
     /**
      * @IsGranted("ROLE_CUSTOMER")
+     * @SWG\Response(
+     *  response=201,
+     *  description="Create one order. The customer field should by an integer representing a valid customer ID. The items list should contains only integers representing valid product's or bundle's IDs."
+     *  )
+     * @SWG\Tag(name="orders")
      */
     public function postOrdersAction(Request $request)
     {
