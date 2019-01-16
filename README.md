@@ -17,6 +17,7 @@ Build a set of REST interfaces (no visual interfaces are needed) that allow us t
 * [Technology](#technology)
 * [Endpoints](#endpoints)
 * [Design Decisions and Implementation Details](#design-decisions-and-implementation-details)
+* [Possible improvements](#possible-improvements)
 
 ### Technology
 
@@ -76,13 +77,21 @@ I considered three other approaches for the discount design:
 * storing both values in different columns
 * having a boolean column 'percentual'
 
-In the end, I choose this design because I consider it the most clean, simple(compared to polymorphic), extensible and it's more compliant with my previous design decision of giving flexibility to the client to deal with data formatting.
+In the end, I choosed this design because I consider it the most clean, simple(compared to polymorphic), extensible and it's more compliant with my previous design decision of giving flexibility to the client to deal with data formatting.
 
 The polymorphic option looks like the best approach, but I thought it was getting too much complex, maybe in a future refactoring.
 
 #### PATCH vs PUT
 
 I decided to implement only PATCH for changes and consider part of the resource as a representation of the changes.
+
+### Possible improvements
+
+* Inventory management
+* Admin features to orders
+* More customer features
+* Better error messaging
+* Refactoring `App/Serializer`
 
 ## Documentation
 
