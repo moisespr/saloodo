@@ -1,7 +1,5 @@
 # Saloodo Technical Challenge for Backend Software Engineer
 
-## Backend Developer Test
-
 Build a set of REST interfaces (no visual interfaces are needed) that allow us to do the following:
 * Manage a list of products that have prices.
 * Enable the administrator to set concrete prices (such as 10EUR) and discounts to prices either by a concrete amount (-1 EUR) or by percentage (-10%).
@@ -9,7 +7,15 @@ Build a set of REST interfaces (no visual interfaces are needed) that allow us t
 * Enable customers to get the list of products and respective prices.
 * Enable customers to place an order for one or more products, and provide customers with the list of products and the total price.
 
+# Table of contents
+
+* [Solution](#solution)
+* [Documentation](#documentation)
+
 ## Solution
+
+* [Technology](#technology)
+* [Endpoints](#endpoints)
 
 ### Technology
 
@@ -82,6 +88,11 @@ I decided to implement only PATCH for changes and consider part of the resource 
 You can access a live API documentation along with a SwaggerUI interface at: 
 http://www.moisesrosa.com/
 
+* [Usage](#usage)
+* [Prices and Discounts format](#prices-and-discounts-format)
+* [Security](#security)
+* [API](#api)
+
 ### Usage
 
 #### API Example
@@ -137,69 +148,81 @@ For CUSTOMERs restricted endpoints.
 
 `X-AUTH-TOKEN: CUSTOMER_TOKEN`
 
-### Customer
+### API
 
-#### `GET /customers`
+#### Customer
+
+`GET /customers`
+
 *__ADMIN__ role only*
 
 List all customers.
 
-#### `GET /customers/{id}`
+`GET /customers/{id}`
+
 *__ADMIN__ role only*
 
 Retrieve one customer by ID.
 
-#### `DELETE /customers/{id}`
+`DELETE /customers/{id}`
+
 *__ADMIN__ role only*
 
 Deletes one customer by ID.
 
-#### `POST /customers`
+`POST /customers`
+
 *__ADMIN__ role only*
 
 Create one customer.
 
-#### Body data format
+Body data format
 ```json
 {
   "name": "Customer"
 }
 ```
-#### `PATCH /customers/{id}`
+
+`PATCH /customers/{id}`
+
 *__ADMIN__ role only*
 
 Updates one customer by ID.
 
-#### Body data format
+Body data format
 ```json
 {
   "name": "Customer New Name"
 }
 ```
 
-### Product
+#### Product
 
-#### `GET /products`
+`GET /products`
+
 *__CUSTOMER__ role*
 
 List all products.
 
-#### `GET /products/{id}`
+`GET /products/{id}`
+
 *__CUSTOMER__ role*
 
 Retrieve one product by ID.
 
-#### `DELETE /products/{id}`
+`DELETE /products/{id}`
+
 *__ADMIN__ role only*
 
 Deletes one product by ID.
 
-#### `POST /products`
+`POST /products`
+
 *__ADMIN__ role only*
 
 Create one product.
 
-#### Body data format
+Body data format
 ```json
 {
   "name": "Product",
@@ -207,23 +230,27 @@ Create one product.
   "discount": "10%"
 }
 ```
-#### `PATCH /products/{id}`
+
+`PATCH /products/{id}`
+
 *__ADMIN__ role only*
 
 Updates one product by ID.
 
-#### Body data format
+Body data format
 ```json
 {
   "price": "5EUR"
 }
 ```
-#### `PATCH /products/{id}/price`
+
+`PATCH /products/{id}/price`
+
 *__ADMIN__ role only*
 
 Updates product's price or discount by ID.
 
-#### Body data format
+Body data format
 ```json
 {
   "amount": "5",
@@ -231,31 +258,35 @@ Updates product's price or discount by ID.
 }
 ```
 
-### Bundle
+#### Bundle
 
-#### `GET /bundles`
+`GET /bundles`
+
 *__CUSTOMER__ role*
 
 List all bundles.
 
-#### `GET /bundles/{id}`
+`GET /bundles/{id}`
+
 *__CUSTOMER__ role*
 
 Retrieve one bundle by ID.
 
-#### `DELETE /bundles/{id}`
+`DELETE /bundles/{id}`
+
 *__ADMIN__ role only*
 
 Deletes one bundle by ID.
 
-#### `POST /bundles`
+`POST /bundles`
+
 *__ADMIN__ role only*
 
 Create one bundle.
 
 The products list should contains only integers representing valid product's IDs.
 
-#### Body data format
+Body data format
 ```json
 {
   "name": "Bundle",
@@ -266,23 +297,27 @@ The products list should contains only integers representing valid product's IDs
   ]
 }
 ```
-#### `PATCH /bundles/{id}`
+
+`PATCH /bundles/{id}`
+
 *__ADMIN__ role only*
 
 Updates one bundle by ID.
 
-#### Body data format
+Body data format
 ```json
 {
   "name": "New Bundle Name"
 }
 ```
-#### `PATCH /bundles/{id}/price`
+
+`PATCH /bundles/{id}/price`
+
 *__ADMIN__ role only*
 
 Updates bundle's price or discount by ID.
 
-#### Body data format
+Body data format
 ```json
 {
   "amount": "5",
@@ -290,14 +325,16 @@ Updates bundle's price or discount by ID.
 }
 ```
 
-### Order
+#### Order
 
-#### `GET /orders/{id}`
+`GET /orders/{id}`
+
 *__CUSTOMER__ role*
 
 Retrieve one order by ID.
 
-#### `POST /orders`
+`POST /orders`
+
 *__CUSTOMER__ role*
 
 Create one order.
@@ -306,7 +343,7 @@ The customer field should by an integer representing a valid customer ID.
 
 The items list should contains only integers representing valid product's or bundle's IDs.
 
-#### Body data format
+Body data format
 ```json
 {
   "customer": 1,
