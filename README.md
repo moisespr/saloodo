@@ -96,7 +96,7 @@ I decided to implement only PATCH for changes and consider part of the resource 
 
 ## Documentation
 
-You can access a live API documentation along with a SwaggerUI interface at: 
+You can access a SwaggerUI interface to play with the API at: 
 http://www.moisesrosa.com/
 
 * [Usage](#usage)
