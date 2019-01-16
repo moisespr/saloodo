@@ -92,6 +92,7 @@ I decided to implement only PATCH for changes and consider part of the resource 
 * More customer features
 * Better error messaging
 * Refactoring `App/Serializer`
+* Improve test coverage
 
 ## Documentation
 
