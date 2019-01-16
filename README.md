@@ -140,43 +140,154 @@ For CUSTOMERs restricted endpoints.
 ### Customer
 
 #### `GET /customers`
-*__admin__ only*
+*__ADMIN__ role only*
 
 List all customers.
 
 #### `GET /customers/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Retrieve one customer by ID.
 
 #### `DELETE /customers/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Deletes one customer by ID.
 
 #### `POST /customers`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Create one customer.
 
 #### Body data format
 ```json
 {
-  'name': 'Customer'
+  "name": "Customer"
 }
 ```
 #### `PATCH /customers/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Updates one customer by ID.
 
 #### Body data format
 ```json
 {
-  'name': 'Customer New Name'
+  "name": "Customer New Name"
 }
 ```
 
 ### Product
+
+#### `GET /products`
+*__CUSTOMER__ role*
+
+List all products.
+
+#### `GET /products/{id}`
+*__CUSTOMER__ role*
+
+Retrieve one product by ID.
+
+#### `DELETE /products/{id}`
+*__admin__ only*
+
+Deletes one product by ID.
+
+#### `POST /products`
+*__admin__ only*
+
+Create one product.
+
+#### Body data format
+```json
+{
+  "name": "Product",
+  "price": "5.50",
+  "discount": "10%"
+}
+```
+#### `PATCH /products/{id}`
+*__admin__ only*
+
+Updates one product by ID.
+
+#### Body data format
+```json
+{
+  "price": "5EUR"
+}
+```
+#### `PATCH /products/{id}/price`
+*__admin__ only*
+
+Updates product's price or discount by ID.
+
+#### Body data format
+```json
+{
+  "amount": "5",
+  "discount": "10%"
+}
+```
+
 ### Bundle
+
+#### `GET /bundles
+*__CUSTOMER__ role*
+
+List all bundles.
+
+#### `GET /bundles/{id}`
+*__CUSTOMER__ role*
+
+Retrieve one bundle by ID.
+
+#### `DELETE /bundles/{id}`
+*__admin__ only*
+
+Deletes one bundle by ID.
+
+#### `POST /bundles`
+*__admin__ only*
+
+Create one bundle.
+
+The products list should contains only integers representing valid product's IDs.
+
+#### Body data format
+```json
+{
+  "name": "Bundle",
+  "price": "20",
+  "discount": "5%",
+  "products": [
+    1, 2
+  ]
+}
+```
+#### `PATCH /bundles/{id}`
+*__admin__ only*
+
+Updates one bundle by ID.
+
+#### Body data format
+```json
+{
+  "name": "New Bundle Name"
+}
+```
+#### `PATCH /bundles/{id}/price`
+*__admin__ only*
+
+Updates bundle's price or discount by ID.
+
+#### Body data format
+```json
+{
+  "amount": "5",
+  "discount": "10%"
+}
+```
+
 ### Order
