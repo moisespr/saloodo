@@ -150,7 +150,7 @@ For CUSTOMERs restricted endpoints.
 
 ### API
 
-#### Customer
+#### _Customer_
 
 `GET /customers`
 
@@ -196,7 +196,7 @@ Body data format
 }
 ```
 
-#### Product
+#### _Product_
 
 `GET /products`
 
@@ -258,7 +258,7 @@ Body data format
 }
 ```
 
-#### Bundle
+#### _Bundle_
 
 `GET /bundles`
 
@@ -325,7 +325,7 @@ Body data format
 }
 ```
 
-#### Order
+#### _Order_
 
 `GET /orders/{id}`
 
