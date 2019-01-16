@@ -154,25 +154,25 @@ For CUSTOMERs restricted endpoints.
 
 `GET /customers`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 List all customers.
 
 `GET /customers/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Retrieve one customer by ID.
 
 `DELETE /customers/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Deletes one customer by ID.
 
 `POST /customers`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Create one customer.
 
@@ -185,7 +185,7 @@ Body data format
 
 `PATCH /customers/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Updates one customer by ID.
 
@@ -200,25 +200,25 @@ Body data format
 
 `GET /products`
 
-*__CUSTOMER__ role*
+*CUSTOMER role*
 
 List all products.
 
 `GET /products/{id}`
 
-*__CUSTOMER__ role*
+*CUSTOMER role*
 
 Retrieve one product by ID.
 
 `DELETE /products/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Deletes one product by ID.
 
 `POST /products`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Create one product.
 
@@ -233,7 +233,7 @@ Body data format
 
 `PATCH /products/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Updates one product by ID.
 
@@ -246,7 +246,7 @@ Body data format
 
 `PATCH /products/{id}/price`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Updates product's price or discount by ID.
 
@@ -262,25 +262,25 @@ Body data format
 
 `GET /bundles`
 
-*__CUSTOMER__ role*
+*CUSTOMER role*
 
 List all bundles.
 
 `GET /bundles/{id}`
 
-*__CUSTOMER__ role*
+*CUSTOMER role*
 
 Retrieve one bundle by ID.
 
 `DELETE /bundles/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Deletes one bundle by ID.
 
 `POST /bundles`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Create one bundle.
 
@@ -300,7 +300,7 @@ Body data format
 
 `PATCH /bundles/{id}`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Updates one bundle by ID.
 
@@ -313,7 +313,7 @@ Body data format
 
 `PATCH /bundles/{id}/price`
 
-*__ADMIN__ role only*
+*ADMIN role only*
 
 Updates bundle's price or discount by ID.
 
@@ -329,13 +329,13 @@ Body data format
 
 `GET /orders/{id}`
 
-*__CUSTOMER__ role*
+*CUSTOMER role*
 
 Retrieve one order by ID.
 
 `POST /orders`
 
-*__CUSTOMER__ role*
+*CUSTOMER role*
 
 Create one order.
 
