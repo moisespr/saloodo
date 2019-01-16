@@ -59,7 +59,7 @@ Endpoints that satisfies the requirements. Full documentation [here](#documentat
 
 #### Prices and Discounts formats
 
-Final prices are calculated and stored, if a discount exists you should always calculate the final price, plus, we should have much less writes(discounts set) than reads.
+Final prices are calculated and stored, having a discount means that the final price should be calculated anyway, plus, we should have much less writes(discounts set) than reads.
 
 Several input formats for price and discount are accepted by the API but are exposed as a number with two decimal places, discounts also have a type(PERCENTUAL, CONCRETE), the intent is to give the client flexibility to apply which format it finds more suitable for the task at hand.
 
