@@ -291,3 +291,27 @@ Updates bundle's price or discount by ID.
 ```
 
 ### Order
+
+#### `GET /orders/{id}`
+*__CUSTOMER__ role*
+
+Retrieve one order by ID.
+
+#### `POST /orders`
+*__CUSTOMER__ role*
+
+Create one order.
+
+The customer field should by an integer representing a valid customer ID.
+
+The items list should contains only integers representing valid product's or bundle's IDs.
+
+#### Body data format
+```json
+{
+  "customer": 1,
+  "items": [
+    4, 5
+  ]
+}
+```
