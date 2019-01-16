@@ -88,8 +88,8 @@ http://www.moisesrosa.com/
 
 I set up a running API at http://www.moisesrosa.com/
 
-You can test it with:
-
+You can test the API using:
+`curl -H "X-AUTH-TOKEN: ADMIN_TOKEN" http://www.moisesrosa.com/customers`
 
 #### Tests
 
@@ -106,7 +106,12 @@ The composer repository version still doesn't have this patch, so I had to apply
 
 ### Prices and Discounts format
 
-------
+The following formats are accepted as price and discount amount:
+
+* Integer. Ex: 10, 999, 500
+* Decimal. Ex: 5.5, 4.56
+* With Currency. Ex: 10EUR, 5.5EUR - _only EUR is supported by now_
+* **For discounts only**: with a negative sign. Ex: -10EUR, -10, -5.5
 
 ### Security
 
@@ -143,6 +148,34 @@ List all customers.
 *__admin__ only*
 
 Retrieve one customer by ID.
+
+#### `DELETE /customers/{id}`
+*__admin__ only*
+
+Deletes one customer by ID.
+
+#### `POST /customers`
+*__admin__ only*
+
+Create one customer.
+
+#### Body data format
+```json
+{
+  'name': 'Customer'
+}
+```
+#### `PATCH /customers/{id}`
+*__admin__ only*
+
+Updates one customer by ID.
+
+#### Body data format
+```json
+{
+  'name': 'Customer New Name'
+}
+```
 
 ### Product
 ### Bundle
