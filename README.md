@@ -110,7 +110,7 @@ http://www.moisesrosa.com/
 
 I set up a running API at http://www.moisesrosa.com/
 
-You can test the API using:
+You can also test the API using:
 `curl -H "X-AUTH-TOKEN: ADMIN_TOKEN" http://www.moisesrosa.com/customers`
 
 #### Tests
