@@ -16,6 +16,7 @@ Build a set of REST interfaces (no visual interfaces are needed) that allow us t
 
 * [Technology](#technology)
 * [Endpoints](#endpoints)
+* [Design Decisions and Implementation Details](#design-decisions-and-implementation-details)
 
 ### Technology
 
@@ -54,7 +55,7 @@ Endpoints that satisfies the requirements. Full documentation [here](#documentat
 
 `GET|POST /orders/{id}|/orders`
 
-### Design Decicions and Implementation Details
+### Design Decisions and Implementation Details
 
 #### Prices and Discounts formats
 
