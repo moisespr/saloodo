@@ -190,12 +190,12 @@ List all products.
 Retrieve one product by ID.
 
 #### `DELETE /products/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Deletes one product by ID.
 
 #### `POST /products`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Create one product.
 
@@ -208,7 +208,7 @@ Create one product.
 }
 ```
 #### `PATCH /products/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Updates one product by ID.
 
@@ -219,7 +219,7 @@ Updates one product by ID.
 }
 ```
 #### `PATCH /products/{id}/price`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Updates product's price or discount by ID.
 
@@ -233,7 +233,7 @@ Updates product's price or discount by ID.
 
 ### Bundle
 
-#### `GET /bundles
+#### `GET /bundles`
 *__CUSTOMER__ role*
 
 List all bundles.
@@ -244,12 +244,12 @@ List all bundles.
 Retrieve one bundle by ID.
 
 #### `DELETE /bundles/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Deletes one bundle by ID.
 
 #### `POST /bundles`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Create one bundle.
 
@@ -267,7 +267,7 @@ The products list should contains only integers representing valid product's IDs
 }
 ```
 #### `PATCH /bundles/{id}`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Updates one bundle by ID.
 
@@ -278,7 +278,7 @@ Updates one bundle by ID.
 }
 ```
 #### `PATCH /bundles/{id}/price`
-*__admin__ only*
+*__ADMIN__ role only*
 
 Updates bundle's price or discount by ID.
 
