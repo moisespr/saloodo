@@ -152,26 +152,22 @@ For CUSTOMERs restricted endpoints.
 
 #### _Customer_
 
-`GET /customers`
-
+##### `GET /customers`
 *ADMIN role only*
 
 List all customers.
 
-`GET /customers/{id}`
-
+##### `GET /customers/{id}`
 *ADMIN role only*
 
 Retrieve one customer by ID.
 
-`DELETE /customers/{id}`
-
+##### `DELETE /customers/{id}`
 *ADMIN role only*
 
 Deletes one customer by ID.
 
-`POST /customers`
-
+##### `POST /customers`
 *ADMIN role only*
 
 Create one customer.
@@ -183,8 +179,7 @@ Body data format
 }
 ```
 
-`PATCH /customers/{id}`
-
+##### `PATCH /customers/{id}`
 *ADMIN role only*
 
 Updates one customer by ID.
@@ -198,26 +193,22 @@ Body data format
 
 #### _Product_
 
-`GET /products`
-
+##### `GET /products`
 *CUSTOMER role*
 
 List all products.
 
-`GET /products/{id}`
-
+##### `GET /products/{id}`
 *CUSTOMER role*
 
 Retrieve one product by ID.
 
-`DELETE /products/{id}`
-
+##### `DELETE /products/{id}`
 *ADMIN role only*
 
 Deletes one product by ID.
 
-`POST /products`
-
+##### `POST /products`
 *ADMIN role only*
 
 Create one product.
@@ -231,8 +222,7 @@ Body data format
 }
 ```
 
-`PATCH /products/{id}`
-
+##### `PATCH /products/{id}`
 *ADMIN role only*
 
 Updates one product by ID.
@@ -244,8 +234,7 @@ Body data format
 }
 ```
 
-`PATCH /products/{id}/price`
-
+##### `PATCH /products/{id}/price`
 *ADMIN role only*
 
 Updates product's price or discount by ID.
@@ -260,26 +249,22 @@ Body data format
 
 #### _Bundle_
 
-`GET /bundles`
-
+##### `GET /bundles`
 *CUSTOMER role*
 
 List all bundles.
 
-`GET /bundles/{id}`
-
+##### `GET /bundles/{id}`
 *CUSTOMER role*
 
 Retrieve one bundle by ID.
 
-`DELETE /bundles/{id}`
-
+##### `DELETE /bundles/{id}`
 *ADMIN role only*
 
 Deletes one bundle by ID.
 
-`POST /bundles`
-
+##### `POST /bundles`
 *ADMIN role only*
 
 Create one bundle.
@@ -298,8 +283,7 @@ Body data format
 }
 ```
 
-`PATCH /bundles/{id}`
-
+##### `PATCH /bundles/{id}`
 *ADMIN role only*
 
 Updates one bundle by ID.
@@ -311,8 +295,7 @@ Body data format
 }
 ```
 
-`PATCH /bundles/{id}/price`
-
+##### `PATCH /bundles/{id}/price`
 *ADMIN role only*
 
 Updates bundle's price or discount by ID.
@@ -327,14 +310,12 @@ Body data format
 
 #### _Order_
 
-`GET /orders/{id}`
-
+##### `GET /orders/{id}`
 *CUSTOMER role*
 
 Retrieve one order by ID.
 
-`POST /orders`
-
+##### `POST /orders`
 *CUSTOMER role*
 
 Create one order.
