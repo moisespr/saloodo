@@ -11,6 +11,8 @@ use FOS\RestBundle\Controller\Annotations\Patch;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\Delete;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use Doctrine\DBAL\Exception as DoctrineException;
 
 use App\Form\PriceType;
@@ -22,6 +24,9 @@ use App\Entity\Bundle;
 
 class BundleController extends AbstractFOSRestController
 {
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function getBundlesAction()
     {
         $bundles = $this->getDoctrine()
@@ -35,6 +40,9 @@ class BundleController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function getBundleAction($id)
     {
         $bundle = $this->getDoctrine()
@@ -50,6 +58,9 @@ class BundleController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function deleteBundleAction($id)
     {
         $bundle = $this->getDoctrine()
@@ -75,6 +86,9 @@ class BundleController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function postBundlesAction(Request $request)
     {
         $data = json_decode($request->getContent(), true); 
@@ -98,6 +112,9 @@ class BundleController extends AbstractFOSRestController
         );
     }
  
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function patchBundleAction(Request $request, $id)
     {
         $bundle = $this->getDoctrine()
@@ -128,6 +145,7 @@ class BundleController extends AbstractFOSRestController
 
     /**
      * @Patch("/bundles/{id}/price")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateBundlePrice(Request $request, $id)
     {
@@ -159,6 +177,7 @@ class BundleController extends AbstractFOSRestController
 
     /**
      * @Post("/bundles/{id}/products")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function addProductsToBundle(Request $request, $id)
     {
@@ -215,6 +234,7 @@ class BundleController extends AbstractFOSRestController
 
     /**
      * @Delete("/bundles/{id}/products")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteProductsFromBundle(Request $request, $id)
     {

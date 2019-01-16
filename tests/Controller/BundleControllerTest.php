@@ -10,9 +10,21 @@ class BundleControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
 
+    private function createCustomerClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'CUSTOMER_TOKEN'
+        ]);
+    }
+
+    private function createAdminClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'ADMIN_TOKEN'
+        ]);
+    }
+
     public function testGetBundles()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
     
         $client->request('GET', '/bundles');
 
@@ -26,8 +38,8 @@ class BundleControllerTest extends WebTestCase
 
     public function testGetBundleById()
     {
-        $client = static::createClient();
-
+        $client = $this->createCustomerClient();
+ 
         $client->request('GET', '/bundles/5');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -51,8 +63,8 @@ class BundleControllerTest extends WebTestCase
 
     public function testGetBundleInexistent()
     {
-        $client = static::createClient();
-
+        $client = $this->createCustomerClient();
+ 
         $client->request('GET', '/bundles/11');
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
@@ -60,8 +72,8 @@ class BundleControllerTest extends WebTestCase
 
     public function testGetBundleNotBundle()
     {
-        $client = static::createClient();
-
+        $client = $this->createCustomerClient();
+ 
         $client->request('GET', '/bundles/1');
 
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
@@ -69,7 +81,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testDeleteBundleInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('DELETE', '/bundles/11');
 
@@ -78,7 +90,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testUpdateBundleInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'name' => 'Bundle New Name'
@@ -98,7 +110,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testChangeConcretePriceBundleInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '5.50EUR'];
         $client->request(
@@ -115,7 +127,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testChangeConcreteDiscountBundleInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['value' => '5.50EUR'];
         $client->request(
@@ -132,7 +144,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testCreateBundleOneProduct()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Bundle 1',
@@ -170,7 +182,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testCreateBundleTwoProducts()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Bundle 1',
@@ -208,7 +220,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testCreateBundleNoProduct()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Bundle 1',
@@ -229,7 +241,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testCreateBundleProductsEmpty()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Bundle 1',
@@ -252,7 +264,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testCreateBundleNoName()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'price' => '40EUR',
@@ -275,7 +287,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testCreateBundleNoPrice()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Bundle 1',
@@ -298,7 +310,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testDeleteProductFromBundleProductsEmpty()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'products' => [
@@ -319,7 +331,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testDeleteProductFromBundleNoProducts()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
         ];
@@ -338,7 +350,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testAddProductToBundleProductsEmpty()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'products' => [
@@ -359,7 +371,7 @@ class BundleControllerTest extends WebTestCase
 
     public function testAddProductToBundleNoProducts()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
         ];

@@ -50,6 +50,7 @@ class DiscountType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Discount::class,
+            'csrf_protection' => false,
             'empty_data' => function (FormInterface $form) {
                 $amount = $form->get('amount')->getData();
                 if(is_null($amount)) 

@@ -42,6 +42,7 @@ class BundleType extends ProductType
     {
         $resolver->setDefaults([
             'data_class' => Bundle::class,
+            'csrf_protection' => false,
         ]);
     }
 }

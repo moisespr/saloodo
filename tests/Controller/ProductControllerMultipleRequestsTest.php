@@ -8,9 +8,21 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 {
     use ReloadDatabaseTrait;
 
+    private function createCustomerClient() {
+        return $this->createAdminClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'CUSTOMER_TOKEN'
+        ]);
+    }
+
+    private function createAdminClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'ADMIN_TOKEN'
+        ]);
+    }
+
     public function testDeleteProductById() 
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('DELETE', '/products/4');
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
@@ -21,7 +33,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testDeleteProductByIdHasBundle() 
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('DELETE', '/products/1');        
         $this->assertEquals(409, $client->getResponse()->getStatusCode());
@@ -29,7 +41,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceInteger()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '5'];
         $client->request(
@@ -56,7 +68,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceIntegerWithCurrencyCode()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '5EUR'];
         $client->request(
@@ -83,7 +95,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceDecimal()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '5.50'];
         $client->request(
@@ -110,7 +122,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceDecimalWithCurrencyCode()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = ['amount' => '5.50EUR'];
         $client->request(
@@ -137,7 +149,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountInteger()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '1'];
         $client->request(
@@ -168,7 +180,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountIntegerWithCurrencyCode()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '1EUR'];
         $client->request(
@@ -199,7 +211,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountDecimal()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '1.5'];
         $client->request(
@@ -230,7 +242,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountDecimalWithCurrencyCode()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '1.5EUR'];
         $client->request(
@@ -261,7 +273,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
  
     public function testChangePercentualDiscount()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '10%'];
         $client->request(
@@ -292,7 +304,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
  
     public function testChangeConcretePriceIntegerNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '-5'];
         $client->request(
@@ -319,7 +331,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceIntegerWithCurrencyCodeNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '-5EUR'];
         $client->request(
@@ -346,7 +358,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceDecimalNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '-5.50'];
         $client->request(
@@ -373,7 +385,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcretePriceDecimalWithCurrencyCodeNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = ['amount' => '-5.50EUR'];
         $client->request(
@@ -400,7 +412,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountIntegerNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '-1'];
         $client->request(
@@ -431,7 +443,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountIntegerWithCurrencyCodeNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '-1EUR'];
         $client->request(
@@ -462,7 +474,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountDecimalNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '-1.5'];
         $client->request(
@@ -493,7 +505,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testChangeConcreteDiscountDecimalWithCurrencyCodeNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '-1.5EUR'];
         $client->request(
@@ -524,7 +536,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
  
     public function testChangePercentualDiscountNegative()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['discount' => '-10%'];
         $client->request(
@@ -555,7 +567,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
  
     public function testUpdateProductName()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $name = 'Product New Name';
         $request_data = [
@@ -585,7 +597,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
  
     public function testUpdateProductPrice()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $price = 15;
         $request_data = [
@@ -618,7 +630,7 @@ class ProductControllerMultipleRequestsTest extends WebTestCase
 
     public function testUpdateProductDiscount()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'discount' => '5%'

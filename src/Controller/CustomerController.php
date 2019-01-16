@@ -5,6 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 
 use App\Entity\Customer;
@@ -12,6 +14,9 @@ use App\Form\CustomerType;
 
 class CustomerController extends AbstractFOSRestController
 {
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function getCustomersAction()
     {
         $customers = $this->getDoctrine()
@@ -25,6 +30,9 @@ class CustomerController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function getCustomerAction($id)
     {
         $customer = $this->getDoctrine()
@@ -40,6 +48,9 @@ class CustomerController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function deleteCustomerAction($id)
     {
         $customer = $this->getDoctrine()
@@ -59,6 +70,9 @@ class CustomerController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function postCustomersAction(Request $request)
     {
         $data = json_decode($request->getContent(), true); 
@@ -82,6 +96,9 @@ class CustomerController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function patchCustomerAction(Request $request, $id)
     {
         $customer = $this->getDoctrine()

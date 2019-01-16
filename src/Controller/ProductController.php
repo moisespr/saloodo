@@ -5,6 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Patch;
@@ -18,6 +20,9 @@ use App\Entity\Product;
 
 class ProductController extends AbstractFOSRestController
 {
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function getProductsAction()
     {
         $products = $this->getDoctrine()
@@ -31,6 +36,9 @@ class ProductController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function getProductAction($id)
     {
         $product = $this->getDoctrine()
@@ -46,6 +54,9 @@ class ProductController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function deleteProductAction($id)
     {
         $product = $this->getDoctrine()
@@ -71,6 +82,9 @@ class ProductController extends AbstractFOSRestController
         );
     }
 
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function postProductsAction(Request $request)
     {
         $data = json_decode($request->getContent(), true); 
@@ -94,6 +108,9 @@ class ProductController extends AbstractFOSRestController
         );
     }
  
+    /**
+     * @IsGranted("ROLE_ADMIN")
+     */
     public function patchProductAction(Request $request, $id)
     {
         $product = $this->getDoctrine()
@@ -124,6 +141,7 @@ class ProductController extends AbstractFOSRestController
 
     /**
      * @Patch("/products/{id}/price")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function updateProductPrice(Request $request, $id)
     {

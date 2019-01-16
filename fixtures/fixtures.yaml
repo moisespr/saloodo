@@ -58,4 +58,12 @@ App\Entity\OrderItem:
         product: '@bundle_2'
         order: '@order_1'
 
-
+App\Entity\User:
+    user_1:
+        username: 'Admin'
+        roles: ['ROLE_ADMIN', 'ROLE_CUSTOMER']
+        apiToken: 'ADMIN_TOKEN'
+    user_2:
+        username: 'Customer'
+        roles: ['ROLE_CUSTOMER']
+        apiToken: 'CUSTOMER_TOKEN'

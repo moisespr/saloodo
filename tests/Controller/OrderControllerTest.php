@@ -10,9 +10,21 @@ class OrderControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
 
+    private function createCustomerClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'CUSTOMER_TOKEN'
+        ]);
+    }
+
+    private function createAdminClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'ADMIN_TOKEN'
+        ]);
+    }
+
     public function testGetOrderById()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
     
         $client->request('GET', '/orders/1');
 
@@ -35,7 +47,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testGetOrderInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
 
         $client->request('GET', '/orders/11');
 
@@ -44,7 +56,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testCreateOrderOneProduct()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
         
         $request_data = [
             'customer' => 1,
@@ -81,7 +93,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testCreateOrderTwoProducts()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
         
         $request_data = [
             'customer' => 1,
@@ -118,7 +130,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testCreateOrderNoProduct()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
         
         $request_data = [
             'customer' => 1
@@ -138,7 +150,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testCreateOrderProductsEmpty()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
         
         $request_data = [
             'customer' => 1,
@@ -160,7 +172,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testCreateOrderNoCustomer()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
         
         $request_data = [
             'items' => [

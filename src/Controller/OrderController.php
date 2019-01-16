@@ -5,6 +5,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 
 use App\Entity\Order;
@@ -13,6 +15,9 @@ use App\Form\OrderType;
 class OrderController extends AbstractFOSRestController
 {
 
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function getOrderAction($id)
     {
         $order = $this->getDoctrine()
@@ -28,6 +33,9 @@ class OrderController extends AbstractFOSRestController
         );
     }
  
+    /**
+     * @IsGranted("ROLE_CUSTOMER")
+     */
     public function postOrdersAction(Request $request)
     {
         $data = json_decode($request->getContent(), true); 

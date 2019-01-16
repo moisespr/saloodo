@@ -10,10 +10,22 @@ class ProductControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
 
+    private function createCustomerClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'CUSTOMER_TOKEN'
+        ]);
+    }
+
+    private function createAdminClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'ADMIN_TOKEN'
+        ]);
+    }
+
     public function testGetProducts()
     {
-        $client = static::createClient();
-    
+        $client = $this->createCustomerClient();
+
         $client->request('GET', '/products');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -26,7 +38,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductByIdNoDiscount()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
 
         $client->request('GET', '/products/1');
 
@@ -49,7 +61,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductByIdWithConcreteDiscount()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
 
         $client->request('GET', '/products/2');
 
@@ -72,7 +84,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductByIdWithPercentualDiscount()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
 
         $client->request('GET', '/products/3');
 
@@ -94,7 +106,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductByIdProductInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createCustomerClient();
 
         $client->request('GET', '/products/11');
 
@@ -103,7 +115,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testDeleteProductByIdProductInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('DELETE', '/products/11');
 
@@ -112,7 +124,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testUpdateProductByIdProductInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'name' => 'Product New Name'
@@ -132,7 +144,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testChangeConcretePriceProductInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['amount' => '5.50EUR'];
         $client->request(
@@ -149,7 +161,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testChangeConcreteDiscountProductInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = ['value' => '5.50EUR'];
         $client->request(
@@ -166,7 +178,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testCreateProduct()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Product 4',
@@ -202,7 +214,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testCreateProductNoDiscount()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'name' => 'Product 4',
@@ -235,7 +247,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testCreateProductNoName()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'price' => '40EUR'
@@ -255,7 +267,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testCreateProductNoPrice()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Product 4'

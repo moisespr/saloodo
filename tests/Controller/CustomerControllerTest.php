@@ -9,9 +9,15 @@ class CustomerControllerTest extends WebTestCase
 {
     use RefreshDatabaseTrait;
 
+    private function createAdminClient() {
+        return static::createClient([], [
+            'HTTP_X-AUTH-TOKEN' => 'ADMIN_TOKEN'
+        ]);
+    }
+
     public function testGetCustomers()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
     
         $client->request('GET', '/customers');
 
@@ -25,7 +31,7 @@ class CustomerControllerTest extends WebTestCase
 
     public function testGetCustomer()
     { 
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('GET', '/customers/1');
 
@@ -39,7 +45,7 @@ class CustomerControllerTest extends WebTestCase
 
     public function testGetCustomerInexistent()
     { 
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('GET', '/customers/11');
 
@@ -48,7 +54,7 @@ class CustomerControllerTest extends WebTestCase
 
     public function testDeleteCustomerInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $client->request('DELETE', '/customers/11');
 
@@ -57,7 +63,7 @@ class CustomerControllerTest extends WebTestCase
 
     public function testUpdateCustomerInexistent()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
 
         $request_data = [
             'name' => 'Customer New Name'
@@ -77,7 +83,7 @@ class CustomerControllerTest extends WebTestCase
  
     public function testCreateCustomer()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
             'name' => 'Customer 2',
@@ -102,7 +108,7 @@ class CustomerControllerTest extends WebTestCase
 
     public function testCreateCustomerNoName()
     {
-        $client = static::createClient();
+        $client = $this->createAdminClient();
         
         $request_data = [
         ];

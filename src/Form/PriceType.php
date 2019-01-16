@@ -99,6 +99,7 @@ class PriceType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Price::class,
+            'csrf_protection' => false,
             'empty_data' => function (FormInterface $form) {
                 if($this->hasPrice($form))
                     return null;
