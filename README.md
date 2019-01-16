@@ -112,9 +112,7 @@ Tests are using _PHPUnit_ and _hautelook/AliceBundle_
 The functional tests over the API endpoints are located at `tests/Controller`
 
 #### __CAUTION__
-__I had to apply this patch in order to make the trait works with WebTestCase
-https://github.com/hautelook/AliceBundle/pull/441
-The composer repository version still doesn't have this patch, so I had to apply it directly to the code.__
+__I had to apply this [patch](https://github.com/hautelook/AliceBundle/pull/441) in order to make the trait works with WebTestCase, the composer repository version still doesn't have this patch, so I had to apply it directly to the code.__
 
 ### Prices and Discounts format
 
